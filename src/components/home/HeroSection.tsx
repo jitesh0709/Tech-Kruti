@@ -169,7 +169,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <HoverButton 
               onClick={() => navigate('/about')}
-              glowColor="#ef4444"
+              glowColor="hsl(var(--primary))"
               backgroundColor="hsl(var(--primary))"
               textColor="hsl(var(--primary-foreground))"
               hoverTextColor="hsl(var(--primary-foreground))"
@@ -180,10 +180,10 @@ const HeroSection = () => {
             </HoverButton>
             <HoverButton 
               onClick={() => navigate('/contact')}
-              glowColor="#ef4444"
+              glowColor="hsl(var(--primary))"
               backgroundColor="transparent"
               textColor="hsl(var(--foreground))"
-              hoverTextColor="#ef4444"
+              hoverTextColor="hsl(var(--primary))"
               className="border-glow"
             >
               Contact Us
