@@ -1,5 +1,12 @@
 import React, { useRef, useState, MouseEvent, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+
+interface RippleEffect {
+  id: number;
+  x: number;
+  y: number;
+}
 
 interface ButtonProps {
   children: ReactNode;
@@ -10,6 +17,7 @@ interface ButtonProps {
   backgroundColor?: string;
   textColor?: string;
   hoverTextColor?: string;
+  rippleColor?: string;
 }
 
 const HoverButton: React.FC<ButtonProps> = ({ 
@@ -20,11 +28,13 @@ const HoverButton: React.FC<ButtonProps> = ({
   glowColor = 'hsl(var(--primary))',
   backgroundColor = 'hsl(var(--background))',
   textColor = 'hsl(var(--foreground))',
-  hoverTextColor = 'hsl(var(--primary))'
+  hoverTextColor = 'hsl(var(--primary))',
+  rippleColor = 'hsl(var(--primary-foreground) / 0.4)'
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
+  const [ripples, setRipples] = useState<RippleEffect[]>([]);
 
   const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
     if (buttonRef.current) {
@@ -43,10 +53,32 @@ const HoverButton: React.FC<ButtonProps> = ({
     setIsHovered(false);
   };
 
+  const createRipple = (e: MouseEvent<HTMLButtonElement>) => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const newRipple = { id: Date.now(), x, y };
+      setRipples(prev => [...prev, newRipple]);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== newRipple.id));
+      }, 600);
+    }
+  };
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!disabled) {
+      createRipple(e);
+      onClick?.();
+    }
+  };
+
   return (
     <button
       ref={buttonRef}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -76,6 +108,26 @@ const HoverButton: React.FC<ButtonProps> = ({
           filter: 'blur(20px)',
         }}
       />
+
+      {/* Ripple effects */}
+      <AnimatePresence>
+        {ripples.map(ripple => (
+          <motion.span
+            key={ripple.id}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              backgroundColor: rippleColor,
+              transform: 'translate(-50%, -50%)',
+            }}
+            initial={{ width: 0, height: 0, opacity: 0.8 }}
+            animate={{ width: 300, height: 300, opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          />
+        ))}
+      </AnimatePresence>
       
       {/* Button content */}
       <span className="relative z-10">{children}</span>
