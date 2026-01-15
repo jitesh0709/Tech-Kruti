@@ -10,7 +10,7 @@ const navLinks = [
   { name: "Academics", path: "/academics" },
   { name: "Faculty", path: "/faculty" },
   { name: "Infrastructure", path: "/infrastructure" },
-  { name: "Activities", path: "/activities" },
+  
   { name: "Gallery", path: "/gallery" },
   { name: "Contact", path: "/contact" },
 ];
