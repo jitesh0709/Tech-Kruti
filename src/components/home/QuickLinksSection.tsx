@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Users, Building2, Calendar, ArrowRight } from "lucide-react";
+import { BookOpen, Users, Building2, ArrowRight } from "lucide-react";
 
 const quickLinks = [
   {
@@ -22,13 +22,6 @@ const quickLinks = [
     description: "Discover our state-of-the-art labs and facilities",
     path: "/infrastructure",
     color: "primary",
-  },
-  {
-    icon: Calendar,
-    title: "Activities",
-    description: "View our workshops, industrial visits, and events",
-    path: "/activities",
-    color: "accent",
   },
 ];
 
