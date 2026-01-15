@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
+import SplashButton from "@/components/ui/SplashButton";
 
 const HeroSection = () => {
   const stats = [
@@ -50,8 +51,13 @@ const HeroSection = () => {
             <span className="text-foreground"> Data Visualization</span>.
           </p>
 
+          {/* Splash Button */}
+          <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <SplashButton />
+          </div>
+
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Button asChild size="lg" className="group glow-box">
               <Link to="/about">
                 Explore Department
