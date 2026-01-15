@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
 import { motion } from "framer-motion";
 import SplashButton from "@/components/ui/SplashButton";
+import { TextRewind } from "@/components/ui/text-rewind";
 
 const HeroSection = () => {
   const stats = [
@@ -150,14 +151,27 @@ const HeroSection = () => {
             <span className="text-gradient glow-text">Data Science</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Empowering the next generation of data scientists with cutting-edge education in 
-            <span className="text-foreground"> Analytics</span>, 
-            <span className="text-foreground"> Machine Learning</span>, 
-            <span className="text-foreground"> IoT</span>, and 
-            <span className="text-foreground"> Data Visualization</span>.
-          </p>
+          {/* Subtitle with Rewind Effect */}
+          <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <TextRewind 
+              text="Data Science" 
+              className="mb-4"
+              shadowColors={{
+                first: "hsl(var(--primary))",
+                second: "hsl(217 91% 60%)",
+                third: "hsl(199 89% 48%)",
+                fourth: "hsl(188 94% 43%)",
+                glow: "hsl(var(--primary))",
+              }}
+            />
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Empowering the next generation of data scientists with cutting-edge education in 
+              <span className="text-foreground"> Analytics</span>, 
+              <span className="text-foreground"> Machine Learning</span>, 
+              <span className="text-foreground"> IoT</span>, and 
+              <span className="text-foreground"> Data Visualization</span>.
+            </p>
+          </div>
 
           {/* Splash Button */}
           <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.3s' }}>
