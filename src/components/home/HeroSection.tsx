@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
 import { motion } from "framer-motion";
 import SplashButton from "@/components/ui/SplashButton";
-import { RainingLetters, ScrambledTitle } from "@/components/ui/modern-animated-hero-section";
 
 const HeroSection = () => {
   const stats = [
@@ -37,9 +36,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center hero-gradient overflow-hidden">
-      {/* Raining Letters Background */}
-      <RainingLetters className="z-0" />
-      
       {/* Background Effects */}
       <div className="absolute inset-0 bg-hero-pattern" />
       <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse-glow" />
@@ -151,7 +147,7 @@ const HeroSection = () => {
           <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <span className="text-foreground">Computer Science &</span>
             <br />
-            <ScrambledTitle phrases={['Data Science', 'Machine Learning', 'Data Analytics', 'IoT Solutions', 'Visualization']} />
+            <span className="text-gradient glow-text">Data Science</span>
           </h1>
 
           {/* Subtitle */}
