@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/ui/PageHeader";
+import { TextRevealByWord } from "@/components/ui/text-reveal";
 import { Eye, Target, Lightbulb, Users, BookOpen, Rocket } from "lucide-react";
 
 const missions = [
@@ -34,31 +35,12 @@ const VisionMission = () => {
         badge="Our Purpose"
       />
 
-      {/* Vision Section */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="glass-card border-glow rounded-3xl p-8 md:p-12 relative overflow-hidden">
-              {/* Glow effect */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Eye className="h-8 w-8 text-primary" />
-                  </div>
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-                    Our Vision
-                  </h2>
-                </div>
-                <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed italic">
-                  "To emerge as a Centre of Excellence in Data Science, nurturing expertise in 
-                  analytics and machine learning for national development."
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Vision Text Reveal Section */}
+      <section className="relative">
+        <TextRevealByWord
+          text="To emerge as a Centre of Excellence in Data Science, nurturing expertise in analytics and machine learning for national development."
+          className="z-10"
+        />
       </section>
 
       {/* Mission Section */}
