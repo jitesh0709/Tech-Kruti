@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
+import { motion } from "framer-motion";
 import SplashButton from "@/components/ui/SplashButton";
 
 const HeroSection = () => {
@@ -11,12 +12,119 @@ const HeroSection = () => {
     { icon: Sparkles, label: "Focus Areas", value: "4+" },
   ];
 
+  // Floating icons configuration
+  const floatingIcons = [
+    { Icon: BarChart3, x: "10%", y: "20%", delay: 0, duration: 6 },
+    { Icon: PieChart, x: "85%", y: "15%", delay: 1, duration: 7 },
+    { Icon: TrendingUp, x: "75%", y: "70%", delay: 2, duration: 5 },
+    { Icon: Database, x: "15%", y: "75%", delay: 0.5, duration: 8 },
+    { Icon: Cpu, x: "90%", y: "45%", delay: 1.5, duration: 6 },
+    { Icon: Binary, x: "5%", y: "50%", delay: 2.5, duration: 7 },
+    { Icon: Network, x: "50%", y: "85%", delay: 3, duration: 5 },
+    { Icon: BrainCircuit, x: "60%", y: "10%", delay: 0.8, duration: 6 },
+  ];
+
+  // Particles configuration
+  const particles = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 4 + 2,
+    duration: Math.random() * 3 + 2,
+    delay: Math.random() * 2,
+  }));
+
   return (
     <section className="relative min-h-[90vh] flex items-center hero-gradient overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-hero-pattern" />
       <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-1/4 -left-32 w-80 h-80 bg-accent/20 rounded-full blur-[100px] animate-pulse-glow" />
+      
+      {/* Floating Data Visualization Icons */}
+      {floatingIcons.map(({ Icon, x, y, delay, duration }, index) => (
+        <motion.div
+          key={index}
+          className="absolute pointer-events-none"
+          style={{ left: x, top: y }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: [0.15, 0.4, 0.15],
+            scale: [0.8, 1.1, 0.8],
+            y: [0, -20, 0],
+            rotate: [0, 10, -10, 0]
+          }}
+          transition={{
+            duration: duration,
+            delay: delay,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <Icon className="h-8 w-8 md:h-12 md:w-12 text-primary/30" />
+        </motion.div>
+      ))}
+
+      {/* Particle Effects */}
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-primary/40 pointer-events-none"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            width: particle.size,
+            height: particle.size,
+          }}
+          animate={{
+            opacity: [0, 0.8, 0],
+            scale: [0, 1.5, 0],
+            y: [0, -50, -100],
+          }}
+          transition={{
+            duration: particle.duration,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "easeOut"
+          }}
+        />
+      ))}
+
+      {/* Glowing orbs */}
+      <motion.div
+        className="absolute w-64 h-64 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
+          left: "30%",
+          top: "40%",
+        }}
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute w-48 h-48 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--accent) / 0.15) 0%, transparent 70%)",
+          right: "20%",
+          bottom: "30%",
+        }}
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.4, 0.2, 0.4],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
       {/* Grid Pattern */}
       <div 
