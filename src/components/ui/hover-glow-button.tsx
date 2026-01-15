@@ -76,15 +76,17 @@ const HoverButton: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button
+    <motion.button
       ref={buttonRef}
       onClick={handleClick}
       disabled={disabled}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       className={cn(
-        "relative overflow-hidden px-6 py-3 rounded-lg font-medium transition-all duration-300",
+        "relative overflow-hidden px-6 py-3 rounded-lg font-medium transition-colors duration-300",
         "border border-border/50",
         disabled && "opacity-50 cursor-not-allowed",
         className
@@ -95,17 +97,21 @@ const HoverButton: React.FC<ButtonProps> = ({
       }}
     >
       {/* Glow effect div */}
-      <div
-        className="absolute pointer-events-none transition-opacity duration-300"
+      <motion.div
+        className="absolute pointer-events-none z-0"
+        animate={{
+          opacity: isHovered ? 0.8 : 0,
+          scale: isHovered ? 1 : 0.5,
+        }}
+        transition={{ duration: 0.2 }}
         style={{
-          width: '150px',
-          height: '150px',
+          width: '200px',
+          height: '200px',
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
-          left: glowPosition.x - 75,
-          top: glowPosition.y - 75,
-          opacity: isHovered ? 0.6 : 0,
-          filter: 'blur(20px)',
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 60%)`,
+          left: glowPosition.x - 100,
+          top: glowPosition.y - 100,
+          filter: 'blur(25px)',
         }}
       />
 
@@ -114,7 +120,7 @@ const HoverButton: React.FC<ButtonProps> = ({
         {ripples.map(ripple => (
           <motion.span
             key={ripple.id}
-            className="absolute rounded-full pointer-events-none"
+            className="absolute rounded-full pointer-events-none z-[1]"
             style={{
               left: ripple.x,
               top: ripple.y,
@@ -131,7 +137,7 @@ const HoverButton: React.FC<ButtonProps> = ({
       
       {/* Button content */}
       <span className="relative z-10">{children}</span>
-    </button>
+    </motion.button>
   );
 };
 
