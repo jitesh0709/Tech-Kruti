@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/ui/PageHeader";
+import { TextRevealByWord } from "@/components/ui/text-reveal";
 import { CheckCircle, Briefcase, GraduationCap, Target } from "lucide-react";
 
 const skills = [
@@ -38,49 +39,31 @@ const About = () => {
         badge="CSE - Data Science"
       />
 
+      {/* Text Reveal Section */}
+      <section className="relative">
+        <TextRevealByWord
+          text="Data Science is a multidisciplinary field that unifies statistics, data analysis, machine learning, and related methods to understand and analyze actual phenomena with data. It involves extracting knowledge and insights from structured and unstructured data."
+          className="z-10"
+        />
+      </section>
+
+      {/* Skills Section */}
       <section className="section-padding">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Program Overview */}
-            <div>
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                Program Overview
-              </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Data Science is a multidisciplinary field that unifies statistics, data analysis, 
-                  machine learning, and related methods to understand and analyze actual phenomena 
-                  with data. It involves extracting knowledge and insights from structured and 
-                  unstructured data.
-                </p>
-                <p>
-                  Our B.Tech CSE - Data Science program is designed to equip students with the 
-                  skills and knowledge required to analyze complex data, develop machine learning 
-                  models, and create data-driven solutions that address real-world challenges.
-                </p>
-                <p>
-                  The curriculum follows NEP 2020 guidelines and is aligned with industry 
-                  requirements to ensure our graduates are job-ready from day one.
-                </p>
-              </div>
-            </div>
-
-            {/* Skills Covered */}
-            <div>
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                Skills You'll Develop
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {skills.map((skill, index) => (
-                  <div
-                    key={skill}
-                    className="flex items-center gap-3 glass-card border-glow rounded-xl p-4 hover:glow-box transition-all duration-300"
-                  >
-                    <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-foreground">{skill}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+              Skills You'll Develop
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {skills.map((skill) => (
+                <div
+                  key={skill}
+                  className="flex items-center gap-3 glass-card border-glow rounded-xl p-4 hover:glow-box transition-all duration-300"
+                >
+                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span className="text-foreground">{skill}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
