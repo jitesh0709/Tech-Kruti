@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/ui/PageHeader";
+import { TextRevealByWord } from "@/components/ui/text-reveal";
 import { Crown, GraduationCap, Mail } from "lucide-react";
 
 const facultyData = [
@@ -65,6 +66,14 @@ const Faculty = () => {
         subtitle="Meet our dedicated team of educators and researchers"
         badge="Expert Mentors"
       />
+
+      {/* Faculty Introduction Text Reveal */}
+      <section className="relative">
+        <TextRevealByWord
+          text="Our dedicated faculty brings together expertise in data science, machine learning, and cutting-edge research to guide the next generation of data scientists."
+          className="z-10"
+        />
+      </section>
 
       <section className="section-padding">
         <div className="container-custom">
