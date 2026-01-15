@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
 import { motion } from "framer-motion";
 import SplashButton from "@/components/ui/SplashButton";
-
+import { HoverButton } from "@/components/ui/hover-glow-button";
 const HeroSection = () => {
+  const navigate = useNavigate();
+  
   const stats = [
     { icon: Calendar, label: "Established", value: "2021" },
     { icon: Users, label: "Intake Capacity", value: "150" },
@@ -166,15 +167,27 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <Button asChild size="lg" className="group glow-box">
-              <Link to="/about">
-                Explore Department
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-glow hover:bg-secondary">
-              <Link to="/contact">Contact Us</Link>
-            </Button>
+            <HoverButton 
+              onClick={() => navigate('/about')}
+              glowColor="hsl(var(--primary))"
+              backgroundColor="hsl(var(--primary))"
+              textColor="hsl(var(--primary-foreground))"
+              hoverTextColor="hsl(var(--primary-foreground))"
+              className="group glow-box flex items-center gap-2"
+            >
+              Explore Department
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </HoverButton>
+            <HoverButton 
+              onClick={() => navigate('/contact')}
+              glowColor="hsl(var(--primary))"
+              backgroundColor="transparent"
+              textColor="hsl(var(--foreground))"
+              hoverTextColor="hsl(var(--primary))"
+              className="border-glow"
+            >
+              Contact Us
+            </HoverButton>
           </div>
 
           {/* Stats */}
