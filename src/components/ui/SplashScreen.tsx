@@ -165,15 +165,6 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
               ))}
             </motion.div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="mt-6 text-sm sm:text-base text-muted-foreground tracking-[0.3em] uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.5 }}
-            >
-              Department of CSE
-            </motion.p>
 
             {/* Bottom decorative line */}
             <motion.div
