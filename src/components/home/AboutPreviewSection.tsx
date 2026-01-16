@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const highlights = [
   "Multidisciplinary approach combining CS, Statistics & Domain Knowledge",
@@ -13,19 +14,24 @@ const highlights = [
 
 const AboutPreviewSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // Animate border-radius from rounded to less rounded as you scroll
-  const borderRadius = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [80, 24, 24, 80]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.6]);
+  // Animate border-radius from rounded to less rounded as you scroll (smaller values on mobile)
+  const borderRadius = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 0.7, 1], 
+    isMobile ? [40, 16, 16, 40] : [80, 24, 24, 80]
+  );
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.7, 1, 1, 0.7]);
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-20 px-4 md:px-8">
+    <section ref={sectionRef} className="py-8 sm:py-12 md:py-20 px-3 sm:px-4 md:px-8">
       <motion.div 
         className="container-custom bg-card/50 backdrop-blur-sm border border-border/50 overflow-hidden"
         style={{ 
@@ -34,7 +40,7 @@ const AboutPreviewSection = () => {
           opacity
         }}
       >
-        <div className="p-8 md:p-12 lg:p-16">
+        <div className="p-4 sm:p-8 md:p-12 lg:p-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Content */}
             <motion.div
@@ -88,8 +94,8 @@ const AboutPreviewSection = () => {
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="glass-card border-glow rounded-3xl p-8 md:p-12">
-                <div className="grid grid-cols-2 gap-6">
+              <div className="glass-card border-glow rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12">
+                <div className="grid grid-cols-2 gap-3 sm:gap-6">
                   {[
                     { value: "150+", label: "Students", color: "text-primary" },
                     { value: "7+", label: "Expert Faculty", color: "text-accent" },
@@ -98,21 +104,21 @@ const AboutPreviewSection = () => {
                   ].map((stat, index) => (
                     <motion.div 
                       key={index}
-                      className="glass-card rounded-xl p-6 text-center hover:glow-box transition-all duration-300"
+                      className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-6 text-center hover:glow-box transition-all duration-300"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.05 }}
                     >
-                      <p className={`font-display text-4xl font-bold ${stat.color} mb-2`}>{stat.value}</p>
-                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                      <p className={`font-display text-2xl sm:text-3xl md:text-4xl font-bold ${stat.color} mb-1 sm:mb-2`}>{stat.value}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
                     </motion.div>
                   ))}
                 </div>
               </div>
               {/* Glow effect */}
-              <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl -z-10" />
+              <div className="absolute -inset-2 sm:-inset-4 bg-primary/10 rounded-2xl sm:rounded-3xl blur-xl sm:blur-2xl -z-10" />
             </motion.div>
           </div>
         </div>

@@ -85,55 +85,59 @@ const HeroSection = () => {
     duration: Math.random() * 3 + 2,
     delay: Math.random() * 2
   }));
-  return <section className="relative min-h-[90vh] flex items-center hero-gradient overflow-hidden">
+  return <section className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center hero-gradient overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-hero-pattern" />
-      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-1/4 -left-32 w-80 h-80 bg-accent/20 rounded-full blur-[100px] animate-pulse-glow" />
+      <div className="absolute top-1/4 -right-32 w-64 sm:w-96 h-64 sm:h-96 bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-pulse-glow" />
+      <div className="absolute bottom-1/4 -left-32 w-48 sm:w-80 h-48 sm:h-80 bg-accent/20 rounded-full blur-[60px] sm:blur-[100px] animate-pulse-glow" />
       
-      {/* Floating Data Visualization Icons */}
-      {floatingIcons.map(({
-      Icon,
-      x,
-      y,
-      delay,
-      duration
-    }, index) => <motion.div key={index} className="absolute pointer-events-none" style={{
-      left: x,
-      top: y
-    }} initial={{
-      opacity: 0,
-      scale: 0
-    }} animate={{
-      opacity: [0.15, 0.4, 0.15],
-      scale: [0.8, 1.1, 0.8],
-      y: [0, -20, 0],
-      rotate: [0, 10, -10, 0]
-    }} transition={{
-      duration: duration,
-      delay: delay,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }}>
-          <Icon className="h-8 w-8 md:h-12 md:w-12 text-primary/30" />
-        </motion.div>)}
+      {/* Floating Data Visualization Icons - Hidden on mobile */}
+      <div className="hidden sm:block">
+        {floatingIcons.map(({
+        Icon,
+        x,
+        y,
+        delay,
+        duration
+      }, index) => <motion.div key={index} className="absolute pointer-events-none" style={{
+        left: x,
+        top: y
+      }} initial={{
+        opacity: 0,
+        scale: 0
+      }} animate={{
+        opacity: [0.15, 0.4, 0.15],
+        scale: [0.8, 1.1, 0.8],
+        y: [0, -20, 0],
+        rotate: [0, 10, -10, 0]
+      }} transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}>
+            <Icon className="h-8 w-8 md:h-12 md:w-12 text-primary/30" />
+          </motion.div>)}
+      </div>
 
-      {/* Particle Effects */}
-      {particles.map(particle => <motion.div key={particle.id} className="absolute rounded-full bg-primary/40 pointer-events-none" style={{
-      left: `${particle.x}%`,
-      top: `${particle.y}%`,
-      width: particle.size,
-      height: particle.size
-    }} animate={{
-      opacity: [0, 0.8, 0],
-      scale: [0, 1.5, 0],
-      y: [0, -50, -100]
-    }} transition={{
-      duration: particle.duration,
-      delay: particle.delay,
-      repeat: Infinity,
-      ease: "easeOut"
-    }} />)}
+      {/* Particle Effects - Reduced on mobile */}
+      <div className="hidden sm:block">
+        {particles.map(particle => <motion.div key={particle.id} className="absolute rounded-full bg-primary/40 pointer-events-none" style={{
+        left: `${particle.x}%`,
+        top: `${particle.y}%`,
+        width: particle.size,
+        height: particle.size
+      }} animate={{
+        opacity: [0, 0.8, 0],
+        scale: [0, 1.5, 0],
+        y: [0, -50, -100]
+      }} transition={{
+        duration: particle.duration,
+        delay: particle.delay,
+        repeat: Infinity,
+        ease: "easeOut"
+      }} />)}
+      </div>
 
       {/* Glowing orbs */}
       <motion.div className="absolute w-64 h-64 rounded-full pointer-events-none" style={{
@@ -176,7 +180,7 @@ const HeroSection = () => {
           </div>
 
           {/* Title */}
-          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6 animate-fade-in" style={{
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 animate-fade-in" style={{
           animationDelay: '0.1s'
         }}>
             <span className="text-foreground">Computer Science &</span>

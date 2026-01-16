@@ -86,7 +86,7 @@ const HoverButton: React.FC<ButtonProps> = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "relative overflow-hidden px-6 py-3 rounded-lg font-medium transition-colors duration-300",
+        "relative overflow-hidden px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium transition-colors duration-300 text-sm sm:text-base",
         "border border-border/50",
         disabled && "opacity-50 cursor-not-allowed",
         className
@@ -96,22 +96,22 @@ const HoverButton: React.FC<ButtonProps> = ({
         color: isHovered ? hoverTextColor : textColor,
       }}
     >
-      {/* Glow effect div */}
+      {/* Glow effect div - smaller on mobile */}
       <motion.div
-        className="absolute pointer-events-none z-0"
+        className="absolute pointer-events-none z-0 hidden sm:block"
         animate={{
           opacity: isHovered ? 0.8 : 0,
           scale: isHovered ? 1 : 0.5,
         }}
         transition={{ duration: 0.2 }}
         style={{
-          width: '200px',
-          height: '200px',
+          width: '150px',
+          height: '150px',
           borderRadius: '50%',
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 60%)`,
-          left: glowPosition.x - 100,
-          top: glowPosition.y - 100,
-          filter: 'blur(25px)',
+          left: glowPosition.x - 75,
+          top: glowPosition.y - 75,
+          filter: 'blur(20px)',
         }}
       />
 
