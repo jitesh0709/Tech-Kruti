@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,7 +6,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import CircleCursor from "./components/ui/CircleCursor";
 import PageTransition from "./components/layout/PageTransition";
-import SplashScreen from "./components/ui/SplashScreen";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import VisionMission from "./pages/VisionMission";
@@ -40,29 +38,17 @@ const AnimatedRoutes = () => {
   );
 };
 
-const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <SplashScreen 
-          duration={3500} 
-          onComplete={() => setShowSplash(false)} 
-        />
-        {!showSplash && (
-          <>
-            <CircleCursor />
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <AnimatedRoutes />
-            </BrowserRouter>
-          </>
-        )}
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <CircleCursor />
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
