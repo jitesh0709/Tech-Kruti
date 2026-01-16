@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,6 +7,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import CircleCursor from "./components/ui/CircleCursor";
 import PageTransition from "./components/layout/PageTransition";
+import SplashScreen from "./components/ui/SplashScreen";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import VisionMission from "./pages/VisionMission";
@@ -38,17 +40,37 @@ const AnimatedRoutes = () => {
   );
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <CircleCursor />
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    // Check if this is the first visit in this session
+    const hasVisited = sessionStorage.getItem("splashShown");
+    if (hasVisited) {
+      setShowSplash(false);
+    }
+  }, []);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    setHasLoaded(true);
+    sessionStorage.setItem("splashShown", "true");
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+        <CircleCursor />
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
