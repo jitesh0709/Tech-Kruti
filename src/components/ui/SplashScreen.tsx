@@ -1,51 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { playSplashSequence } from "@/lib/soundEffects";
 
 interface SplashScreenProps {
   onComplete?: () => void;
   duration?: number;
-  enableSound?: boolean;
 }
 
-const SplashScreen = ({ onComplete, duration = 3000, enableSound = true }: SplashScreenProps) => {
+const SplashScreen = ({ onComplete, duration = 3000 }: SplashScreenProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isLit, setIsLit] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const hasPlayedSound = useRef(false);
-
-  // Handle user interaction to enable audio (required by browsers)
-  const handleUserInteraction = () => {
-    if (!soundEnabled) {
-      setSoundEnabled(true);
-    }
-  };
-
-  useEffect(() => {
-    // Add click listener for audio unlock
-    if (enableSound) {
-      document.addEventListener("click", handleUserInteraction, { once: true });
-      document.addEventListener("touchstart", handleUserInteraction, { once: true });
-      document.addEventListener("keydown", handleUserInteraction, { once: true });
-    }
-
-    return () => {
-      document.removeEventListener("click", handleUserInteraction);
-      document.removeEventListener("touchstart", handleUserInteraction);
-      document.removeEventListener("keydown", handleUserInteraction);
-    };
-  }, [enableSound]);
 
   useEffect(() => {
     // Start the "light on" effect after a short delay
     const lightTimer = setTimeout(() => {
       setIsLit(true);
-      
-      // Play sound when lighting up
-      if (enableSound && !hasPlayedSound.current) {
-        hasPlayedSound.current = true;
-        playSplashSequence(0.25);
-      }
     }, 500);
 
     // Hide splash screen after duration
@@ -58,7 +26,7 @@ const SplashScreen = ({ onComplete, duration = 3000, enableSound = true }: Splas
       clearTimeout(lightTimer);
       clearTimeout(hideTimer);
     };
-  }, [duration, onComplete, enableSound]);
+  }, [duration, onComplete]);
 
   const letters = "DATA SCIENCE".split("");
 
@@ -69,18 +37,8 @@ const SplashScreen = ({ onComplete, duration = 3000, enableSound = true }: Splas
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background overflow-hidden cursor-pointer"
-          onClick={handleUserInteraction}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background overflow-hidden"
         >
-          {/* Click hint */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isLit ? 0 : 0.5 }}
-            className="absolute bottom-8 text-muted-foreground text-xs tracking-wider"
-          >
-            Click anywhere to enable sound
-          </motion.p>
-
           {/* Background glow effect */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
