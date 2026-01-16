@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -62,27 +63,41 @@ const Navbar = () => {
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border/50 animate-fade-in">
+        {/* Mobile Navigation with Animation */}
+        <motion.div 
+          className="lg:hidden overflow-hidden"
+          initial={false}
+          animate={{ 
+            height: isOpen ? "auto" : 0,
+            opacity: isOpen ? 1 : 0
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <div className="py-4 border-t border-border/50">
             <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
+              {navLinks.map((link, index) => (
+                <motion.div
                   key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-3 text-sm font-medium rounded-md transition-all duration-200 ${
-                    location.pathname === link.path
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : -20 }}
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
                 >
-                  {link.name}
-                </Link>
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-4 py-3 text-base font-medium rounded-md transition-all duration-200 ${
+                      location.pathname === link.path
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
-        )}
+        </motion.div>
       </div>
     </nav>
   );
