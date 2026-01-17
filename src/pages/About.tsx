@@ -37,6 +37,7 @@ const About = () => {
         title="About the Department"
         subtitle="Learn about our multidisciplinary approach to Data Science education"
         badge="CSE - Data Science"
+        backgroundKey="about"
       />
 
       {/* Text Reveal Section */}

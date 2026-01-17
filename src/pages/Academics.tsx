@@ -71,6 +71,7 @@ const Academics = () => {
         title="Academics"
         subtitle="Comprehensive curriculum designed for industry-ready professionals"
         badge="B.Tech CSE - Data Science"
+        backgroundKey="academics"
       />
 
       <section className="section-padding">

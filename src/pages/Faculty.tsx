@@ -50,7 +50,7 @@ const Faculty = () => {
   const hod = facultyData.find(f => f.isHOD);
   const otherFaculty = facultyData.filter(f => !f.isHOD);
   return <Layout>
-      <PageHeader title="Our Faculty" subtitle="Meet our dedicated team of educators and researchers" badge="Expert Mentors" />
+      <PageHeader title="Our Faculty" subtitle="Meet our dedicated team of educators and researchers" badge="Expert Mentors" backgroundKey="faculty" />
 
       {/* Faculty Introduction Text Reveal */}
       <section className="relative">
