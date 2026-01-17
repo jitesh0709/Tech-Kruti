@@ -7,7 +7,7 @@ const facultyData = [
   {
     name: "Prof. Nilesh Nagrale",
     qualification: "B.E., M.Tech, Ph.D*",
-    designation: "Assistant Professor & HOD",
+    designation: "Professor & HOD",
     isHOD: true,
     joiningDate: "2021",
   },
