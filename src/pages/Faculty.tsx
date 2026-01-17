@@ -73,7 +73,7 @@ const Faculty = () => {
                     <h3 className="font-display text-2xl font-bold text-foreground mb-1">
                       {hod.name}
                     </h3>
-                    <p className="text-primary font-medium mb-2">{hod.designation}</p>
+                    
                     <p className="text-muted-foreground mb-4">{hod.qualification}</p>
                     <div className="flex flex-wrap gap-4 text-sm">
                       <span className="flex items-center gap-2 text-muted-foreground">
