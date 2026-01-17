@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import SplashButton from "@/components/ui/SplashButton";
 import { HoverButton } from "@/components/ui/hover-glow-button";
+import heroBg from "@/assets/hero-bg.jpg";
 const HeroSection = () => {
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,10 +16,12 @@ const HeroSection = () => {
 
   // Parallax transforms for different layers
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const floatingY = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const gridOpacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 0]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]);
 
   const stats = [{
     icon: Calendar,
@@ -100,9 +103,30 @@ const HeroSection = () => {
     duration: Math.random() * 3 + 2,
     delay: Math.random() * 2
   }));
-  return <section ref={sectionRef} className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center hero-gradient overflow-hidden">
+  return <section ref={sectionRef} className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center overflow-hidden">
+      {/* Parallax Background Image */}
+      <motion.div 
+        className="absolute inset-0 -inset-y-20"
+        style={{ y: bgY, scale: bgScale }}
+      >
+        <img 
+          src={heroBg} 
+          alt="" 
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+      
+      {/* Smooth Gradient Overlay */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background"
+        style={{ opacity: overlayOpacity }}
+      />
+      
+      {/* Additional radial overlay for depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background))_80%)]" />
+      
       {/* Background Effects with Parallax */}
-      <motion.div className="absolute inset-0 bg-hero-pattern" style={{ y: bgY }} />
+      <motion.div className="absolute inset-0 bg-hero-pattern opacity-30" style={{ y: bgY }} />
       <motion.div 
         className="absolute top-1/4 -right-32 w-64 sm:w-96 h-64 sm:h-96 bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-pulse-glow" 
         style={{ y: glowY }}
