@@ -2,6 +2,7 @@ import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/ui/PageHeader";
 import { TextRevealByWord } from "@/components/ui/text-reveal";
 import { Crown, GraduationCap, Mail } from "lucide-react";
+import hodImage from "@/assets/faculty/nilesh-nagrale.jpg";
 const facultyData = [{
   name: "Prof. Nilesh Nagrale",
   qualification: "B.E., M.Tech, Ph.D*",
@@ -66,8 +67,8 @@ const Faculty = () => {
               </h2>
               <div className="glass-card border-glow rounded-2xl p-8 md:p-10 glow-box max-w-2xl">
                 <div className="flex flex-col md:flex-row gap-6 items-start">
-                  <div className="w-24 h-24 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <GraduationCap className="h-12 w-12 text-primary" />
+                  <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+                    <img src={hodImage} alt={hod.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-display text-2xl font-bold text-foreground mb-1">
