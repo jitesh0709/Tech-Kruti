@@ -1,10 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Users, Calendar, BookOpen, Sparkles, BarChart3, PieChart, TrendingUp, Database, Cpu, Binary, Network, BrainCircuit } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import SplashButton from "@/components/ui/SplashButton";
 import { HoverButton } from "@/components/ui/hover-glow-button";
 const HeroSection = () => {
   const navigate = useNavigate();
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax transforms for different layers
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const floatingY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const gridOpacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 0]);
+
   const stats = [{
     icon: Calendar,
     label: "Established",
@@ -85,14 +100,20 @@ const HeroSection = () => {
     duration: Math.random() * 3 + 2,
     delay: Math.random() * 2
   }));
-  return <section className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center hero-gradient overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-hero-pattern" />
-      <div className="absolute top-1/4 -right-32 w-64 sm:w-96 h-64 sm:h-96 bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-1/4 -left-32 w-48 sm:w-80 h-48 sm:h-80 bg-accent/20 rounded-full blur-[60px] sm:blur-[100px] animate-pulse-glow" />
+  return <section ref={sectionRef} className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center hero-gradient overflow-hidden">
+      {/* Background Effects with Parallax */}
+      <motion.div className="absolute inset-0 bg-hero-pattern" style={{ y: bgY }} />
+      <motion.div 
+        className="absolute top-1/4 -right-32 w-64 sm:w-96 h-64 sm:h-96 bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-pulse-glow" 
+        style={{ y: glowY }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 -left-32 w-48 sm:w-80 h-48 sm:h-80 bg-accent/20 rounded-full blur-[60px] sm:blur-[100px] animate-pulse-glow" 
+        style={{ y: glowY }}
+      />
       
-      {/* Floating Data Visualization Icons - Hidden on mobile */}
-      <div className="hidden sm:block">
+      {/* Floating Data Visualization Icons - Hidden on mobile - with Parallax */}
+      <motion.div className="hidden sm:block" style={{ y: floatingY }}>
         {floatingIcons.map(({
         Icon,
         x,
@@ -118,10 +139,10 @@ const HeroSection = () => {
       }}>
             <Icon className="h-8 w-8 md:h-12 md:w-12 text-primary/30" />
           </motion.div>)}
-      </div>
+      </motion.div>
 
       {/* Particle Effects - Reduced on mobile */}
-      <div className="hidden sm:block">
+      <motion.div className="hidden sm:block" style={{ y: floatingY }}>
         {particles.map(particle => <motion.div key={particle.id} className="absolute rounded-full bg-primary/40 pointer-events-none" style={{
         left: `${particle.x}%`,
         top: `${particle.y}%`,
@@ -137,7 +158,7 @@ const HeroSection = () => {
         repeat: Infinity,
         ease: "easeOut"
       }} />)}
-      </div>
+      </motion.div>
 
       {/* Glowing orbs */}
       <motion.div className="absolute w-64 h-64 rounded-full pointer-events-none" style={{
@@ -165,13 +186,18 @@ const HeroSection = () => {
       ease: "easeInOut"
     }} />
       
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-30" style={{
-      backgroundImage: 'linear-gradient(hsl(217 33% 17% / 0.3) 1px, transparent 1px), linear-gradient(90deg, hsl(217 33% 17% / 0.3) 1px, transparent 1px)',
-      backgroundSize: '50px 50px'
-    }} />
+      {/* Grid Pattern with Parallax */}
+      <motion.div 
+        className="absolute inset-0" 
+        style={{
+          backgroundImage: 'linear-gradient(hsl(217 33% 17% / 0.3) 1px, transparent 1px), linear-gradient(90deg, hsl(217 33% 17% / 0.3) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+          opacity: gridOpacity,
+          y: bgY
+        }} 
+      />
 
-      <div className="container-custom relative z-10">
+      <motion.div className="container-custom relative z-10" style={{ y: contentY }}>
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-glow mb-8 animate-fade-in">
@@ -222,7 +248,7 @@ const HeroSection = () => {
           {/* Stats */}
           
         </div>
-      </div>
+      </motion.div>
     </section>;
 };
 export default HeroSection;

@@ -1,5 +1,6 @@
 import { BarChart3, Brain, Cpu, LineChart } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const focusAreas = [
   {
@@ -47,9 +48,27 @@ const cardVariants = {
 };
 
 const FocusAreasSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
   return (
-    <section className="section-padding bg-card/30">
-      <div className="container-custom">
+    <section ref={sectionRef} className="section-padding bg-card/30 relative overflow-hidden">
+      {/* Parallax Background Decoration */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: backgroundY }}
+      >
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      </motion.div>
+      
+      <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
