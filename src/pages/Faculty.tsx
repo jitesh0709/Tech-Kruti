@@ -6,7 +6,7 @@ import { Crown, GraduationCap, Mail } from "lucide-react";
 const facultyData = [
   {
     name: "Prof. Nilesh Nagrale",
-    qualification: "Ph.D* (CSE)",
+    qualification: "B.E., M.Tech, Ph.D*",
     designation: "Assistant Professor & HOD",
     isHOD: true,
     joiningDate: "2021",
