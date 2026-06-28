@@ -19,7 +19,7 @@
 ## 🌐 Live Project
 
 **Project URL:**  
-https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+https://lovable.dev/preview/wjMw15PWoMtzngMkdE0YKyAiwaKS9JRT
 
 ---
 
@@ -43,71 +43,5 @@ https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
 ---
 
-## 📂 Getting Started
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-````
-
-### Navigate to Project
-
-```bash
-cd YOUR_REPOSITORY
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-### Run Development Server
-
-```bash
-npm run dev
-```
-
----
-
-## 📁 Project Structure
-
-```text
-src/
-├── components/
-├── pages/
-├── hooks/
-├── assets/
-├── lib/
-└── App.tsx
-```
-
----
-
-## 🚀 Build for Production
-
-```bash
-npm run build
-```
-
----
-
-## 👥 Team
-
-**Event:** Techkruti – Vibe Coding
-
-**Department:** Computer Science & Engineering (Data Science)
-
-**College:** Tulsiramji Gaikwad-Patil College of Engineering & Technology (TGPCET), Nagpur
-
----
-
-## 📜 License
-
-This project was developed for the **Techkruti – Vibe Coding Event**.
-
-Feel free to explore, learn, and contribute.
-
-```
 ```
